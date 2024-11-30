@@ -33,10 +33,21 @@ jobs:
         run: |
           docker save -o flask-app-latest.tar lamine013/flask-app:latest
 
+      - name: Upload Docker image tar file
+        uses: actions/upload-artifact@v3
+        with:
+          name: flask-app-tar
+          path: flask-app-latest.tar
+
   push-to-dockerhub:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Download Docker image tar file
+        uses: actions/download-artifact@v3
+        with:
+          name: flask-app-tar
+
       - name: Load Docker image from tar file
         run: |
           docker load -i flask-app-latest.tar
