@@ -71,6 +71,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Create Azure Container Apps environment (if not exists)
+        run: |
+          az containerapp env create \
+            --name flask-env \
+            --resource-group flask-app-rg \
+            --location eastus
+
       - name: Deploy to Azure Container Apps
         run: |
           az containerapp create \
