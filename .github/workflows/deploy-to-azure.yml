@@ -27,7 +27,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t your-dockerhub-username/flask-app:latest .
+          docker build -t lamar00/flask-app:latest .
 
   push-to-dockerhub:
     needs: build
@@ -41,8 +41,7 @@ jobs:
 
       - name: Push Docker image to DockerHub
         run: |
-          docker tag your-dockerhub-username/flask-app:latest your-dockerhub-username/flask-app:latest
-          docker push your-dockerhub-username/flask-app:latest
+          docker push lamar00/flask-app:latest
 
   deploy-to-azure:
     needs: push-to-dockerhub
@@ -59,7 +58,7 @@ jobs:
             --name flask-app \
             --resource-group flask-app-rg \
             --environment flask-env \
-            --image your-dockerhub-username/flask-app:latest \
+            --image lamar00/flask-app:latest \
             --cpu 0.5 \
             --memory 1.0Gi \
             --target-port 5001 \
